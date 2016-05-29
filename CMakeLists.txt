@@ -20,8 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 project(libdstu4145)
+
+# FIXME make testing optional and disabled if check not found
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/CMakeModules/)
 find_package(Check REQUIRED)
@@ -29,7 +31,10 @@ include_directories(${CHECK_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src/)
 enable_testing()
 
 add_library(libdstu4145 src/hash.c)
+set_property(TARGET libdstu4145 PROPERTY C_STANDARD 99)
 
+link_directories(${CHECK_LIBRARY_DIRS})
 add_executable(test_dstu4145 tests/test_dstu4145.c)
 target_link_libraries(test_dstu4145 ${CHECK_LIBRARIES} libdstu4145)
+set_property(TARGET test_dstu4145 PROPERTY C_STANDARD 99)
 add_test(test_dstu4145 ${CMAKE_CURRENT_BINARY_DIR}/test_dstu4145)

@@ -23,6 +23,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 /**
  * \file libdstu4145.h
@@ -47,7 +48,7 @@
  * \def dstu4145_defaultiH
  * \brief Default hash function identifier. Function is defined in ГОСТ 34.311
  */
-#define dstu4145_defaultiH (&((const uint8_t)1))
+#define dstu4145_defaultiH ((const uint8_t[]){1})
 
 /**
  * \def dstu4145_defaultLiH

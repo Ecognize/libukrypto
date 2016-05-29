@@ -44,6 +44,18 @@
 #define dstu4145_maxLiH   8
 
 /**
+ * \def dstu4145_defaultiH
+ * \brief Default hash function identifier. Function is defined in ГОСТ 34.311
+ */
+#define dstu4145_defaultiH (&((const uint8_t)1))
+
+/**
+ * \def dstu4145_defaultLiH
+ * \brief Default hash function identifier length
+ */
+#define dstu4145_defaultLiH 1
+
+/**
  * \fn size_t dstu4145_hashlen (const uint8_t *iH, size_t LiH)
  * \brief Return the hash function output length for the function specified
  *

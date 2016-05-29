@@ -24,6 +24,7 @@
 
 /* TODO: check if endinanness might be an issue */
 /* TODO: some verbosity on why exactly have the test failed */
+/* TODO: reorganise nomenclature perhaps */
 
 /* Base function for testing hash functions, currently only ГОСТ 34.311 is supported */
 const char* hash_template(const uint8_t *T, size_t LT, const uint8_t *ref_HT, size_t ref_LH)

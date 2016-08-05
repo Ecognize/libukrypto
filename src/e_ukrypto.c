@@ -18,11 +18,11 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#include "libdstu4145.h"
+#include "libukrypto.h"
 #include <openssl/engine.h>
 
-static const char *engine_id = "dstu4145";
-static const char *engine_name = "Ukrainian DSTU4145 standard for digital electronic signature implementation";
+static const char *engine_id = "ukrypto";
+static const char *engine_name = "Ukrainian cryptography standards implementation";
 
 /* Mainly adapted from OpenSSL tutorial for now */
 static int bind(ENGINE* e, const char *id)

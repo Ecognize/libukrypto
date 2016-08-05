@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.1)
-project(libdstu4145)
+project(libukrypto)
 
 # FIXME make testing optional and disabled if check not found
 
@@ -31,13 +31,13 @@ find_package(OpenSSL REQUIRED)
 include_directories(${CHECK_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/src/)
 enable_testing()
 
-add_library(dstu4145 SHARED src/e_dstu4145.c src/hash.c)
+add_library(dstu4145 SHARED src/e_ukrypto.c src/gost_34.311-95.c)
 set_property(TARGET dstu4145 PROPERTY C_STANDARD 99)
 
 link_directories(${CHECK_LIBRARY_DIRS})
-add_executable(test_dstu4145 tests/test_dstu4145.c)
-target_link_libraries(dstu4145 ${OPENSSL_LIBRARIES})
-target_link_libraries(test_dstu4145 ${CHECK_LIBRARIES} dstu4145)
+add_executable(test_gost_34.311-95 tests/test_gost_34.311-95.c)
+target_link_libraries(ukrypto ${OPENSSL_LIBRARIES})
+target_link_libraries(test_gost_34.311-95 ${CHECK_LIBRARIES} ukrypto)
 set_property(TARGET test_dstu4145 PROPERTY C_STANDARD 99)
 add_test(test_openssl_engine ${PROJECT_SOURCE_DIR}/tests/test_openssl_engine.sh ${CMAKE_CURRENT_BINARY_DIR})
-add_test(test_dstu4145 ${CMAKE_CURRENT_BINARY_DIR}/test_dstu4145)
+add_test(test_gost_34.311-95 ${CMAKE_CURRENT_BINARY_DIR}/test_gost_34.311-95)

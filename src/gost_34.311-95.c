@@ -18,7 +18,7 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#include "libdstu4145.h"
+#include "libukrypto.h"
 #include <string.h>
 
 /* Type and operation definitions mirror the ГОСТ 34.311 manual except for bit to byte conversions */

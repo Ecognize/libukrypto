@@ -18,7 +18,7 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#include "libdstu4145.h"
+#include "libukrypto.h"
 #include <check.h>
 #include <stdlib.h>
 

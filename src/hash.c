@@ -22,7 +22,7 @@
 #include <string.h>
 
 /* Type and operation definitions mirror the ГОСТ 34.311 manual except for bit to byte conversions */
-typedef uint8_t[32] V256;
+typedef uint8_t V256[32];
 
 static void V256cpy(V256 dst, const V256 src)
 {
@@ -32,7 +32,7 @@ static void V256cpy(V256 dst, const V256 src)
 static void V256xor(V256 dst, const V256 A, const V256 B)
 {
   for (int i = 0; i < sizeof(V256); i++)
-    dst[i] = A ^ B;
+    dst[i] = A[i] ^ B[i];
 }
 
 static void V256P(V256 dst, const V256 X)
@@ -45,7 +45,7 @@ static void V256A(V256 dst, const V256 X)
 
 }
 
-static void V256Ek(V256 dst, const V256 H, const V256[4] K)
+static void V256Ek(V256 dst, const V256 H, const V256 K[4])
 {
 
 }
@@ -102,7 +102,7 @@ bool dstu4145_hashmessage(const uint8_t *T, size_t LT, const uint8_t *iH, size_t
 
   /* Key generation */
   V256 U; V256cpy(U, H);
-  V256 V; V256cpy(V, M);
+  V256 V; //V256cpy(V, M);
   V256 W; V256xor(W, U, V);
   V256P(K[0], W);
 

@@ -18,7 +18,7 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#include "libukrypto.h"
+#include "gost_hash.h"
 #include <string.h>
 
 /* Type and operation definitions mirror the ГОСТ 34.311 manual except for bit to byte conversions */

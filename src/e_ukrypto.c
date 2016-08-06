@@ -23,6 +23,13 @@
 #include <stdarg.h>
 #include "macros.h"
 
+#include "gost_hash.h"
+#include "gost_dsa.h"
+#include "dstu_ecdsa.h"
+#include "magma.h"
+#include "kupyna.h"
+#include "kalyna.h"
+
 #if !FINA_VENKO
     #include "legacy.h"
 #endif

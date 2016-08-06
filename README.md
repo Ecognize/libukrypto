@@ -11,3 +11,9 @@ Ukrainian official cryptography standards implemented as an engine module for Op
 
 ## TODO
 Make `check` optional.
+
+## Fina venko
+Currently, upstream `openssl` lacks the correct OID definitions for Ukrainian algorithms, so they are created at runtime via `legacy.c`.
+After OIDs are merged upstream it would be possible to skip compiling the definitions, see `FINA_VENKO` macro. In future when there is no
+point to support `openssl` version that does not have the correct OIDS, the whole glue code will be dropped and replaced with nice
+static structure definitions à la tutorial.

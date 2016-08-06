@@ -18,9 +18,10 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#include "libukrypto.h"
 #include <check.h>
 #include <stdlib.h>
+#include "gost_hash.h"
+#include "kupyna.h"
 
 /* TODO: check if endinanness might be an issue */
 /* TODO: some verbosity on why exactly have the test failed */
@@ -90,11 +91,16 @@ START_TEST(gost_34_311_hash_test_a_3_2)
 END_TEST
 
 Suite *dstu4145_suite() {
-  Suite *suite = suite_create("libdstu4145");
-  TCase *tcase = tcase_create("Hashing");
-  tcase_add_test(tcase, gost_34_311_hash_test_a_3_1);
-  tcase_add_test(tcase, gost_34_311_hash_test_a_3_2);
-  suite_add_tcase(suite, tcase);
+  Suite *suite = suite_create("Hashing");
+  TCase *tcase_gost = tcase_create("GOST 34.311");
+  tcase_add_test(tcase_gost, gost_34_311_hash_test_a_3_1);
+  tcase_add_test(tcase_gost, gost_34_311_hash_test_a_3_2);
+  suite_add_tcase(suite, tcase_gost);
+  
+//   TCase *tcase_gost = tcase_create("GOST 34.311");
+//   tcase_add_test(tcase_gost, gost_34_311_hash_test_a_3_1);
+//   tcase_add_test(tcase_gost, gost_34_311_hash_test_a_3_2);
+//   suite_add_tcase(suite, tcase_gost);
 
   return suite;
 }

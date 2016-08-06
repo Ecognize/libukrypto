@@ -41,11 +41,26 @@ add_library(ukrypto SHARED src/e_ukrypto.c
     src/dstu_ecdsa.c
     src/legacy.c)
 set_property(TARGET ukrypto PROPERTY C_STANDARD 99)
+target_link_libraries(ukrypto ${OPENSSL_LIBRARIES})
 
 link_directories(${CHECK_LIBRARY_DIRS})
-# add_executable(test_gost_34.311-95 tests/test_gost_34.311-95.c)
-target_link_libraries(ukrypto ${OPENSSL_LIBRARIES})
-# target_link_libraries(test_gost_34.311-95 ${CHECK_LIBRARIES} ukrypto)
-# set_property(TARGET test_gost_34.311-95 PROPERTY C_STANDARD 99)
-add_test(test_openssl_engine ${PROJECT_SOURCE_DIR}/tests/test_openssl_engine.sh ${CMAKE_CURRENT_BINARY_DIR})
-# add_test(test_gost_34.311-95 ${CMAKE_CURRENT_BINARY_DIR}/test_gost_34.311-95)
+add_executable(test_openssl_linkage tests/test_openssl_linkage.c)
+target_link_libraries(test_openssl_linkage ${CHECK_LIBRARIES} ukrypto)
+set_property(TARGET test_openssl_linkage PROPERTY C_STANDARD 99)
+add_test(test_openssl_linkage ${CMAKE_CURRENT_BINARY_DIR}/test_openssl_linkage)
+
+add_executable(test_hashing tests/test_hashing.c)
+target_link_libraries(test_hashing ${CHECK_LIBRARIES} ukrypto)
+set_property(TARGET test_hashing PROPERTY C_STANDARD 99)
+add_test(test_hashing ${CMAKE_CURRENT_BINARY_DIR}/test_hashing)
+
+add_executable(test_ciphers tests/test_ciphers.c)
+target_link_libraries(test_ciphers ${CHECK_LIBRARIES} ukrypto)
+set_property(TARGET test_ciphers PROPERTY C_STANDARD 99)
+add_test(test_ciphers ${CMAKE_CURRENT_BINARY_DIR}/test_ciphers)
+
+add_executable(test_dsa tests/test_dsa.c)
+target_link_libraries(test_dsa ${CHECK_LIBRARIES} ukrypto)
+set_property(TARGET test_dsa PROPERTY C_STANDARD 99)
+add_test(test_dsa ${CMAKE_CURRENT_BINARY_DIR}/test_dsa)
+

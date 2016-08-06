@@ -29,4 +29,7 @@
 /* Whether the current OpenSSL release has Ukrainian OIDs */
 #define FINA_VENKO  (OPENSSL_VERSION_NUMBER > 0xffffffff)
 
+/* Add an algorithm to list, will be removed after fina venko and replaced with static initialiser */
+#define algo_add(x, y) (x[n_##x++] = y)
+
 #endif // UKRYPTO_MACROS_H_

@@ -108,7 +108,7 @@ oid_data[] =
 bool ukrypto_generate_nids()
 {
     /* TODO: can this return an error? Study source */
-    for (int i = 0; i < lengthof(oid_data); i++)
+    for (size_t i = 0; i < lengthof(oid_data); i++)
         *oid_data[i].nid = OBJ_create(oid_data[i].on, oid_data[i].sn, oid_data[i].ln);
         
     return true;

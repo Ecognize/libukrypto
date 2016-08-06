@@ -30,18 +30,30 @@
 static const char *ukrypto_id = "ukrypto";
 static const char *ukrypto_name = "Ukrainian cryptography standards implementation";
 
+/* FIXME: should we support "default" versions of algorithms? */
+#define MAX_ALGOS   50
+
 /* Message digests (hash functions) */
-static int digests[4 + 1];
+static int digests[MAX_ALGOS + 1];
+static size_t n_digests = 0;
 
 void prepare_digests()
 {
     /* GOST hash */
-    digests[0] = NID_id_Gost34311;
-    digests[1] = NID_id_GostR3411_94_with_GostR3410_94;
-    digests[2] = NID_id_HmacGost34311;
-    digests[3] = NID_id_HMACGostR3411_94;
+    algo_add(digests, NID_id_Gost34311);
+    algo_add(digests, NID_id_GostR3411_94_with_GostR3410_94);
+    algo_add(digests, NID_id_HmacGost34311);
+    algo_add(digests, NID_id_HMACGostR3411_94);
     
-    digests[lengthof(digests) - 1] = 0;
+    /* Kupyna */
+    algo_add(digests, NID_id_Dstu7564_256);
+    algo_add(digests, NID_id_Dstu7564_384);
+    algo_add(digests, NID_id_Dstu7564_512);
+    algo_add(digests, NID_id_Dstu7564mac_256);
+    algo_add(digests, NID_id_Dstu7564mac_384);
+    algo_add(digests, NID_id_Dstu7564mac_512);
+    
+    algo_add(digests, 0);
 }
 
 static int ukrypto_digests(ENGINE *e, const EVP_MD **digest, const int **nids, int nid)
@@ -50,7 +62,7 @@ static int ukrypto_digests(ENGINE *e, const EVP_MD **digest, const int **nids, i
     if (!digest)
     {
         *nids = digests;
-        return lengthof(digests) - 1;
+        return n_digests - 1;
     }
 }
 

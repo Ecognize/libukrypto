@@ -2,10 +2,12 @@
 Ukrainian official cryptography standards implemented as an engine module for OpenSSL.
 
 ## Standards supported
-1. ГОСТ 34.311-95 hash function (WIP);
-2. ДСТУ 4145-2002 electronic signature (WIP);
-3. ДСТУ ГОСТ 28147 encryption (WIP);
-4. ДСТУ ISO/IEC 15946-3 key exchange (WIP).
+1. ДСТУ ГОСТ 28147:2009 block cipher ("Magma", ГОСТ 28147-89) [WIP];
+2. ДСТУ 7624:2014 block cipher ("Kalyna") [WIP];
+3. ГОСТ 34.311-95 hash function (ГОСТ Р 34.11-94) [WIP];
+4. ДСТУ 7564:2014 hash function ("Kupyna") [WIP];
+5. ДСТУ 4145:2002 digital signature algorithm [WIP];
+6. ГОСТ 34.310-95 digital signature algorithm [WIP];
 
 ## TODO
 Make `check` optional.

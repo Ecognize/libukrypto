@@ -45,7 +45,7 @@ target_link_libraries(ukrypto ${OPENSSL_LIBRARIES})
 
 link_directories(${CHECK_LIBRARY_DIRS})
 add_executable(test_openssl_linkage tests/test_openssl_linkage.c)
-target_link_libraries(test_openssl_linkage ${CHECK_LIBRARIES} ukrypto)
+target_link_libraries(test_openssl_linkage ${CHECK_LIBRARIES} ${OPENSSL_LIBRARIES})
 set_property(TARGET test_openssl_linkage PROPERTY C_STANDARD 99)
 add_test(test_openssl_linkage ${CMAKE_CURRENT_BINARY_DIR}/test_openssl_linkage)
 

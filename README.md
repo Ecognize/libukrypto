@@ -10,7 +10,8 @@ Ukrainian official cryptography standards implemented as an engine module for Op
 6. ГОСТ 34.310-95 digital signature algorithm [WIP];
 
 ## TODO
-Make `check` optional.
+- Make `check` optional.
+- Code style
 
 ## Fina venko
 Currently, upstream `openssl` lacks the correct OID definitions for Ukrainian algorithms, so they are created at runtime via `legacy.c`.

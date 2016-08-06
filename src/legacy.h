@@ -22,86 +22,89 @@
 #define UKRYPTO_LEGACY_H_
 
 #include <openssl/opensslv.h>
+#include <stdbool.h>
+#include "macros.h"
 
-#if OPENSSL_VERSION_NUMBER > 0xffffffff
+#if FINA_VENKO
     #error You have an up to date OpenSSL, do not include this header
 #endif
 
 /* GOST cipher */
-extern int NID-id-Gost28147;
-extern int NID-id-Gost28147ecb;
-extern int NID-id-Gost28147ctr;
-extern int NID-id-Gost28147cfb;
-extern int NID-id-Gost28147cmac;
+extern int NID_id_Gost28147;
+extern int NID_id_Gost28147ecb;
+extern int NID_id_Gost28147ctr;
+extern int NID_id_Gost28147cfb;
+extern int NID_id_Gost28147cmac;
 
 /* Kalyna */
-extern int NID-id-Dstu7624;
-extern int NID-id-Dstu7624ecb;
-extern int NID-id-Dstu7624ecb_128;
-extern int NID-id-Dstu7624ecb_256;
-extern int NID-id-Dstu7624ecb_512;
-extern int NID-id-Dstu7624ctr;
-extern int NID-id-Dstu7624ctr_128;
-extern int NID-id-Dstu7624ctr_256;
-extern int NID-id-Dstu7624ctr_512;
-extern int NID-id-Dstu7624cfb;
-extern int NID-id-Dstu7624cfb_128;
-extern int NID-id-Dstu7624cfb_256;
-extern int NID-id-Dstu7624cfb_512;
-extern int NID-id-Dstu7624cmac;
-extern int NID-id-Dstu7624cmac_128;
-extern int NID-id-Dstu7624cmac_256;
-extern int NID-id-Dstu7624cmac_512;
-extern int NID-id-Dstu7624cbc;
-extern int NID-id-Dstu7624cbc_128;
-extern int NID-id-Dstu7624cbc_256;
-extern int NID-id-Dstu7624cbc_512;
-extern int NID-id-Dstu7624ofb;
-extern int NID-id-Dstu7624ofb_128;
-extern int NID-id-Dstu7624ofb_256;
-extern int NID-id-Dstu7624ofb_512;
-extern int NID-id-Dstu7624gmac;
-extern int NID-id-Dstu7624gmac_128;
-extern int NID-id-Dstu7624gmac_256;
-extern int NID-id-Dstu7624gmac_512;
-extern int NID-id-Dstu7624ccm;
-extern int NID-id-Dstu7624ccm_128;
-extern int NID-id-Dstu7624ccm_256;
-extern int NID-id-Dstu7624ccm_512;
-extern int NID-id-Dstu7624xts;
-extern int NID-id-Dstu7624xts_128;
-extern int NID-id-Dstu7624xts_256;
-extern int NID-id-Dstu7624xts_512;
-extern int NID-id-Dstu7624kw;
-extern int NID-id-Dstu7624kw_128;
-extern int NID-id-Dstu7624kw_256;
-extern int NID-id-Dstu7624kw_512;
+extern int NID_id_Dstu7624;
+extern int NID_id_Dstu7624ecb;
+extern int NID_id_Dstu7624ecb_128;
+extern int NID_id_Dstu7624ecb_256;
+extern int NID_id_Dstu7624ecb_512;
+extern int NID_id_Dstu7624ctr;
+extern int NID_id_Dstu7624ctr_128;
+extern int NID_id_Dstu7624ctr_256;
+extern int NID_id_Dstu7624ctr_512;
+extern int NID_id_Dstu7624cfb;
+extern int NID_id_Dstu7624cfb_128;
+extern int NID_id_Dstu7624cfb_256;
+extern int NID_id_Dstu7624cfb_512;
+extern int NID_id_Dstu7624cmac;
+extern int NID_id_Dstu7624cmac_128;
+extern int NID_id_Dstu7624cmac_256;
+extern int NID_id_Dstu7624cmac_512;
+extern int NID_id_Dstu7624cbc;
+extern int NID_id_Dstu7624cbc_128;
+extern int NID_id_Dstu7624cbc_256;
+extern int NID_id_Dstu7624cbc_512;
+extern int NID_id_Dstu7624ofb;
+extern int NID_id_Dstu7624ofb_128;
+extern int NID_id_Dstu7624ofb_256;
+extern int NID_id_Dstu7624ofb_512;
+extern int NID_id_Dstu7624gmac;
+extern int NID_id_Dstu7624gmac_128;
+extern int NID_id_Dstu7624gmac_256;
+extern int NID_id_Dstu7624gmac_512;
+extern int NID_id_Dstu7624ccm;
+extern int NID_id_Dstu7624ccm_128;
+extern int NID_id_Dstu7624ccm_256;
+extern int NID_id_Dstu7624ccm_512;
+extern int NID_id_Dstu7624xts;
+extern int NID_id_Dstu7624xts_128;
+extern int NID_id_Dstu7624xts_256;
+extern int NID_id_Dstu7624xts_512;
+extern int NID_id_Dstu7624kw;
+extern int NID_id_Dstu7624kw_128;
+extern int NID_id_Dstu7624kw_256;
+extern int NID_id_Dstu7624kw_512;
 
 /* GOST hash */
-extern int NID-id-Gost34311;
-extern int NID-id-HmacGost34311;
+extern int NID_id_Gost34311;
+extern int NID_id_HmacGost34311;
 
 /* Kupyna */
-extern int NID-id-Dstu7564;
-extern int NID-id-Dstu7564_256;
-extern int NID-id-Dstu7564_384;
-extern int NID-id-Dstu7564_512;
-extern int NID-id-Dstu7564mac_256;
-extern int NID-id-Dstu7564mac_384;
-extern int NID-id-Dstu7564mac_512;
+extern int NID_id_Dstu7564;
+extern int NID_id_Dstu7564_256;
+extern int NID_id_Dstu7564_384;
+extern int NID_id_Dstu7564_512;
+extern int NID_id_Dstu7564mac_256;
+extern int NID_id_Dstu7564mac_384;
+extern int NID_id_Dstu7564mac_512;
 
 /* DSTU 4145 */
-extern int NID-id-Dstu4145WithGost34311;
-extern int NID-id-Dstu4145WithDstu7564;
-extern int NID-id-Dstu4145WithDstu7564_256;
-extern int NID-id-Dstu4145WithDstu7564_384;
-extern int NID-id-Dstu4145WithDstu7564_512;
+extern int NID_id_Dstu4145WithGost34311;
+extern int NID_id_Dstu4145WithDstu7564;
+extern int NID_id_Dstu4145WithDstu7564_256;
+extern int NID_id_Dstu4145WithDstu7564_384;
+extern int NID_id_Dstu4145WithDstu7564_512;
 
 /* GOST 34.310 signature */
-extern int NID-id-Gost34310WithGost34311;
+extern int NID_id_Gost34310WithGost34311;
 
 /* TODO: curve points */
 
 /* Create the NIDs in runtime */
+bool ukrypto_generate_nids(); 
 
 #endif // UKRYPTO_LEGACY_H_

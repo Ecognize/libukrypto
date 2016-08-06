@@ -18,47 +18,34 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#include "libukrypto.h"
 #include <openssl/engine.h>
-#include <openssl/objects.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include "macros.h"
 
-/* Static array length if # of elements */
-#define lengthof(x) (sizeof(x)/sizeof(x[0]))
+#if !FINA_VENKO
+    #include "legacy.h"
+#endif
 
 static const char *ukrypto_id = "ukrypto";
 static const char *ukrypto_name = "Ukrainian cryptography standards implementation";
 
-/* Supported alorithms */
-enum algo
-{
-    GOST_34_311_95 = 0,
-    DSTU_4145_2001,
-    DSTU_GOST_28147,
-//     DUST_ISO_IEC_2_15946_3,
-    n_algos
-};
-
-static int NID[n_algos];
-
-/* TODO: study numerical forms better */
-static const char *algo_desc[][3] = 
-{
-    {"1.2.3.4", "GOST 34.311-95", "GOST 34.311-95 hashing function" },
-    {"1.2.3.5", "DSTU 4145-2002", "DSTU 4145-2002 digital signature algorithm" },
-    {"1.2.3.6", "DSTU GOST 28147", "DSTU GOST 28147 encryption algorithm" },
-//     {"1.2.3.7", "DSTU ISO/IEC 15946-3", "DSTU ISO/IEC 15946-3 key exchange" },
-};
-
-/* We need these for API returns, the actual data is filled at startup */
-static int digests[1 + 1];
-static int ciphers[1 + 1];
-static int pmeths[1 + 1];
-
 /* Message digests (hash functions) */
-static int ukrypto_digests(ENGINE *e, const EVP_MD **digest, const int **nids, int nid)
+static int digests[4 + 1];
+
+void prepare_digests()
 {
+    /* GOST hash */
+    digests[0] = NID_id_Gost34311;
+    digests[1] = NID_id_GostR3411_94_with_GostR3410_94;
+    digests[2] = NID_id_HmacGost34311;
+    digests[3] = NID_id_HMACGostR3411_94;
+    
+    digests[lengthof(digests) - 1] = 0;
+}
+
+static int ukrypto_digests(ENGINE *e, const EVP_MD **digest, const int **nids, int nid)
+{  
     /* NULL parameter means we were asked about supported NIDs */
     if (!digest)
     {
@@ -67,27 +54,27 @@ static int ukrypto_digests(ENGINE *e, const EVP_MD **digest, const int **nids, i
     }
 }
 
-/* Ciphers */
-static int ukrypto_ciphers(ENGINE *e, const EVP_CIPHER **cipher, const int **nids, int nid)
-{
-    /* NULL parameter means we were asked about supported NIDs */
-    if (!cipher)
-    {
-        *nids = ciphers;
-        return lengthof(ciphers) - 1;
-    }
-}
-
-/* Digital Signature */
-static int ukrypto_pkeymeths(ENGINE *e, EVP_PKEY_METHOD **pmeth, const int **nids, int nid)
-{
-    /* NULL parameter means we were asked about supported NIDs */
-    if (!pmeth)
-    {
-        *nids = pmeths;
-        return lengthof(pmeths) - 1;
-    }
-}
+// /* Ciphers */
+// static int ukrypto_ciphers(ENGINE *e, const EVP_CIPHER **cipher, const int **nids, int nid)
+// {
+//     /* NULL parameter means we were asked about supported NIDs */
+//     if (!cipher)
+//     {
+//         *nids = ciphers;
+//         return lengthof(ciphers) - 1;
+//     }
+// }
+// 
+// /* Digital Signature */
+// static int ukrypto_pkeymeths(ENGINE *e, EVP_PKEY_METHOD **pmeth, const int **nids, int nid)
+// {
+//     /* NULL parameter means we were asked about supported NIDs */
+//     if (!pmeth)
+//     {
+//         *nids = pmeths;
+//         return lengthof(pmeths) - 1;
+//     }
+// }
 
 /* Prints an error message and returns 1 */
 static int ukrypto_error(const char *fmt, ...)
@@ -102,6 +89,12 @@ static int ukrypto_error(const char *fmt, ...)
 /* Mainly adapted from OpenSSL tutorial for now */
 static int ukrypto_bind(ENGINE* e, const char *id)
 {
+    /* Check if we need to allocate NIDs at runtime */
+#if !FINA_VENKO
+    if (!ukrypto_generate_nids())
+        return ukrypto_error("Can not generate NIDs\n");
+#endif
+    
     /* TODO: test what happens on loading/unloading and multiple loads */
     /* TODO: rewrite this completely anyway */
     
@@ -110,33 +103,18 @@ static int ukrypto_bind(ENGINE* e, const char *id)
         return ukrypto_error("Can not set engine id\n");
     if (!ENGINE_set_name(e, ukrypto_name))
         return ukrypto_error("Can not set engine name\n");
-    
-    /* Allocating NIDs for our algorithms */
-    /* TODO: study if we need to add them to OpenSSL permanently or something */
-    for (int i = 0; i < n_algos; i++)
-    {
-        /* Not totally sure if OBJ_create indicates errors, but let's try */
-        if (! ( NID[i] = OBJ_create(algo_desc[i][0], algo_desc[i][1], algo_desc[i][2]) ) )
-            return ukrypto_error("Can not create a NID for %s\n", algo_desc[i][1]);
-    }
-    
-    /* More hard-coded that I would like to, but works */
-    digests[0] = NID[GOST_34_311_95];
-    digests[1] = 0;
-    
-    ciphers[0] = NID[DSTU_GOST_28147];
-    ciphers[1] = 0;
-    
-    pmeths[0] = NID[DSTU_4145_2001];
-    pmeths[1] = 0;
+
+    /* Preparing stuff */
+    /* TODO: check difference between bind and init */
+    prepare_digests();
     
     /* Registering stuff */
     if (!ENGINE_set_digests(e, ukrypto_digests))
         return ukrypto_error("Can not setup digests\n");
-    if (!ENGINE_set_ciphers(e, ukrypto_ciphers))
-        return ukrypto_error("Can not setup ciphers\n");
-    if (!ENGINE_set_pkey_meths(e, ukrypto_pkeymeths))
-        return ukrypto_error("Can not setup public key methods\n");
+//     if (!ENGINE_set_ciphers(e, ukrypto_ciphers))
+//         return ukrypto_error("Can not setup ciphers\n");
+//     if (!ENGINE_set_pkey_meths(e, ukrypto_pkeymeths))
+//         return ukrypto_error("Can not setup public key methods\n");
     
     return 1;
 }

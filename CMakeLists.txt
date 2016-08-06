@@ -31,7 +31,8 @@ find_package(OpenSSL REQUIRED)
 include_directories(${CHECK_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/src/)
 enable_testing()
 
-add_library(ukrypto SHARED src/e_ukrypto.c src/gost_34.311-95.c)
+# TODO: make legacy.c a conditional source
+add_library(ukrypto SHARED src/e_ukrypto.c src/gost_34.311-95.c src/legacy.c)
 set_property(TARGET ukrypto PROPERTY C_STANDARD 99)
 
 link_directories(${CHECK_LIBRARY_DIRS})

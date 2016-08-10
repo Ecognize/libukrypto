@@ -18,3 +18,16 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
+#ifndef UKRYPTO_KUPYNA_H_ 
+#define UKRYPTO_KUPYNA_H_ 
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif 
+
+#ifdef __cplusplus
+}
+#endif 
+    
+#endif /* UKRYPTO_KALYNA_H_ */

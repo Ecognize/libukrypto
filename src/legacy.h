@@ -29,6 +29,11 @@
     #error You have an up to date OpenSSL, do not include this header
 #endif
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif 
+
 /* GOST cipher */
 extern int NID_id_Gost28147;
 extern int NID_id_Gost28147ecb;
@@ -107,4 +112,8 @@ extern int NID_id_Gost34310WithGost34311;
 /* Create the NIDs in runtime */
 bool ukrypto_generate_nids(); 
 
-#endif // UKRYPTO_LEGACY_H_
+#ifdef __cplusplus
+}
+#endif 
+
+#endif /* UKRYPTO_LEGACY_H_ */

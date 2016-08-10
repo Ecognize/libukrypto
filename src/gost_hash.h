@@ -18,12 +18,17 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#ifndef _LIBDSTU4145_H_
-#define _LIBDSTU4145_H_
+#ifndef UKRYPTO_GOST_HASH_H_
+#define UKRYPTO_GOST_HASH_H_
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif 
 
 /**
  * \file libdstu4145.h
@@ -83,4 +88,8 @@ bool dstu4145_hashmessage(const uint8_t *T, size_t LT,
                           const uint8_t *iH, size_t LiH,
                           uint8_t *HT, size_t LH); /* TODO: maybe return a more sensible thing */
 
-#endif /* _LIBDSTU4145_H_ */
+#ifdef __cplusplus
+}
+#endif 
+
+#endif /* UKRYPTO_GOST_HASH_H_ */

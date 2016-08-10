@@ -32,4 +32,4 @@
 /* Add an algorithm to list, will be removed after fina venko and replaced with static initialiser */
 #define algo_add(x, y) (x[n_##x++] = y)
 
-#endif // UKRYPTO_MACROS_H_
+#endif /* UKRYPTO_MACROS_H_ */

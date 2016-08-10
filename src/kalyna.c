@@ -18,3 +18,38 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
+#include "kalyna.h"
+#include <string.h> 
+
+int ukrypto_kalyna_init(UKRYPTO_KALYNA_CTX *ctx, unsigned short bs, unsigned short ks, uint8_t *key, bool encrypt)
+{
+    if (!ctx || !(bs == 128 || bs == 256 || bs == 512) || !( bs == ks || ks == 2*bs ))
+        return 0; // TODO: proper error
+    
+    /* Record the params, converting to bytes */
+    ctx->bs = bs / 8;
+    ctx->ks = ks / 8;
+    ctx->encrypt = encrypt;
+    
+    /* Allocate state matrix */
+    ctx->state = malloc(ctx->bs);
+    
+    /* Init rounds amount */
+    ctx->rs = 0;
+    
+    /* Copying the key over */
+    ctx->key = malloc(ctx->ks);
+    memcpy(ctx->key, key, ctx->ks);
+}
+
+int ukrypto_kalyna_cleanup(UKRYPTO_KALYNA_CTX *ctx)
+{
+    if (!ctx)
+        return 0; // TODO proper error
+        
+    free(ctx->state);
+    ctx->state = 0;
+    
+    free(ctx->key);
+    ctx->key = 0;
+}

@@ -12,6 +12,7 @@ Ukrainian official cryptography standards implemented as an engine module for Op
 ## TODO
 - Make `check` optional.
 - Code style
+- Code assumes 8-bit bytes.
 
 ## Fina venko
 Currently, upstream `openssl` lacks the correct OID definitions for Ukrainian algorithms, so they are created at runtime via `legacy.c`.

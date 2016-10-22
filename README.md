@@ -2,7 +2,7 @@
 Ukrainian official cryptography standards implemented as an engine module for OpenSSL.
 
 ## Standards supported
-1. ДСТУ ГОСТ 28147:2009 block cipher ("Magma", ГОСТ 28147-89) [WIP];
+1. ДСТУ ГОСТ 28147:2009 block cipher ("Magma", ГОСТ 28147-89) (ECB-only, GOST hash S-box);
 2. ДСТУ 7624:2014 block cipher ("Kalyna") [WIP];
 3. ГОСТ 34.311-95 hash function (ГОСТ Р 34.11-94) [WIP];
 4. ДСТУ 7564:2014 hash function ("Kupyna") [WIP];
@@ -13,6 +13,7 @@ Ukrainian official cryptography standards implemented as an engine module for Op
 ### Print out a certificate
 
 `openssl x509 -in <filename>.cer -noout -text -inform der -nameopt oneline,-esc_msb,utf8`
+
 For files issues by АЦСК ІДД ДФС. Note that while extension is `.cer`, it's actually a DER file.
 
 ## Notes

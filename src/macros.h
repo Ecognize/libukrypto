@@ -59,19 +59,8 @@
 #define assume_be(p, n) assume_endian(p, n, IS_BIG_ENDIAN)
 #define assume_le(p, n) assume_endian(p, n, !IS_BIG_ENDIAN)
 
-/* Reverse bits in a byte */
-#define bitrev_lookup "\x00\x08\x04\x0c\x02\x0a\x06\x0e\x01\x09\x05\x0d\x03\x0b\x07\x0f"
-#define bitrev_8(p) ((uint8_t)bitrev_lookup[(uint8_t)(p) >> 4] | (uint8_t)bitrev_lookup[(uint8_t)(p) & 0x0f] << 4)
-#define byte_n(p,n) ((p & 0xff<< 8*n)>> 8*n)
-
-#define rev_sh(p, n, i) ((u_type(n))bitrev_8(byte_n(p,i)) << 8*i)
-#define bitrev_16(p) (rev_sh(p, 16, 1) | rev_sh(p, 16, 0))
-#define bitrev_32(p) (rev_sh(p, 32, 3) | rev_sh(p, 32, 2) | rev_sh(p, 32, 1) | rev_sh(p, 32, 0))
-#define bitrev_64(p) (rev_sh(p, 64, 7) | rev_sh(p, 64, 6) | rev_sh(p, 64, 5) | rev_sh(p, 64, 4) | rev_sh(p, 64, 3) | rev_sh(p, 64, 2) | rev_sh(p, 64, 1) | rev_sh(p, 64, 0))
-#define bitrev(p, n)  bitrev_##n(p)
-
 /* Read/write to bitstream, assuming 0th bit of the stream is least significant bit in the resulting integer */
-#define frombitstream(v, n) (bitrev(assume_le(((u_type(n)*)(v))[0], n), n))
-#define tobitstream(v, p, n) { *(u_type(n)*)(v) = (assume_le(bitrev(p, n), n)); }
+#define frombitstream(v, n) (assume_le(((u_type(n)*)(v))[0], n))
+#define tobitstream(v, p, n) { *(u_type(n)*)(v) = (assume_le(p, n)); }
 
 #endif /* UKRYPTO_MACROS_H_ */

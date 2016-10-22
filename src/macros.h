@@ -49,7 +49,7 @@
  *    uint16_t n_host_format = assume_be(input_known_to_be_bigendian, 16);
  *    res_host_format = ... f(n_host_format) ...
  *    uint16_t bigendian_result = assume_be(res_host_format, 16); */
-#define assume_endian(p, n, x) (x? p : swap_bele_##x(p))
+#define assume_endian(p, n, x) (x? p : swap_bele_##n(p))
 #define assume_be(p, n) assume_endian(p, n, IS_BIG_ENDIAN)
 #define assume_le(p, n) assume_endian(p, n, IS_BIG_ENDIAN)
 

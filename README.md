@@ -9,6 +9,12 @@ Ukrainian official cryptography standards implemented as an engine module for Op
 5. ДСТУ 4145:2002 digital signature algorithm [WIP];
 6. ГОСТ 34.310-95 digital signature algorithm [WIP];
 
+## Useful commands
+### Print out a certificate
+
+`openssl x509 -in <filename>.cer -noout -text -inform der -nameopt oneline,-esc_msb,utf8`
+For files issues by АЦСК ІДД ДФС. Note that while extension is `.cer`, it's actually a DER file.
+
 ## TODO
 - Make `check` optional.
 - Code style

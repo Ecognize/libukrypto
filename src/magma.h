@@ -18,16 +18,29 @@
 * See the Licence for the specific language governing
 * permissions and limitations under the Licence.
 */
-#ifndef UKRYPTO_MAGMA_H_ 
-#define UKRYPTO_MAGMA_H_ 
+#ifndef UKRYPTO_MAGMA_H_
+#define UKRYPTO_MAGMA_H_
 
 #ifdef __cplusplus
 extern "C"
 {
-#endif 
+#endif
+
+/*!
+ * Magma cipher context structure.
+ */
+typedef struct
+{
+  bool      encrypt;    /**< Whether we are encrypting or decrypting. */
+  uint8_t   s_bl[8][8]; /**< S-block. */
+  size_t    rs;         /**< Rounds passed. */
+  uint32_t  state[2];   /**< Encryption state. */
+  uint32_t  keys[8];    /**< Encryption key (subkeys). */
+} UKRYPTO_MAGMA_CTX;
+
 
 #ifdef __cplusplus
 }
-#endif 
-    
+#endif
+
 #endif /* UKRYPTO_MAGMA_H_ */

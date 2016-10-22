@@ -15,6 +15,12 @@ Ukrainian official cryptography standards implemented as an engine module for Op
 `openssl x509 -in <filename>.cer -noout -text -inform der -nameopt oneline,-esc_msb,utf8`
 For files issues by АЦСК ІДД ДФС. Note that while extension is `.cer`, it's actually a DER file.
 
+## Notes
+- OpenSSL linkage test and overall operations without specifiying the full path may fail on OSX due to bug in the library causing it to look up modules by wrong extension (see: #17). Temporary workaround:
+```Bash
+ln -s libukrypto.dylib libukrypto.1.so
+```
+
 ## TODO
 - Make `check` optional.
 - Code style

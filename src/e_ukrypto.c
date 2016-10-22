@@ -23,12 +23,7 @@
 #include <stdarg.h>
 #include "macros.h"
 
-#include "gost_hash.h"
-#include "gost_dsa.h"
-#include "dstu_ecdsa.h"
-#include "magma.h"
-#include "kupyna.h"
-#include "kalyna.h"
+#include "ukrypto.h"
 
 #if !FINA_VENKO
     #include "legacy.h"
@@ -47,24 +42,24 @@ static size_t n_digests = 0;
 static void prepare_digests()
 {
     /* GOST hash */
-    algo_add(digests, NID_id_Gost34311);
-    algo_add(digests, NID_id_GostR3411_94_with_GostR3410_94);
-    algo_add(digests, NID_id_HmacGost34311);
-    algo_add(digests, NID_id_HMACGostR3411_94);
-    
+    // algo_add(digests, NID_id_Gost34311);
+    // algo_add(digests, NID_id_GostR3411_94_with_GostR3410_94);
+    // algo_add(digests, NID_id_HmacGost34311);
+    // algo_add(digests, NID_id_HMACGostR3411_94);
+
     /* Kupyna */
-    algo_add(digests, NID_id_Dstu7564_256);
-    algo_add(digests, NID_id_Dstu7564_384);
-    algo_add(digests, NID_id_Dstu7564_512);
-    algo_add(digests, NID_id_Dstu7564mac_256);
-    algo_add(digests, NID_id_Dstu7564mac_384);
-    algo_add(digests, NID_id_Dstu7564mac_512);
-    
+    // algo_add(digests, NID_id_Dstu7564_256);
+    // algo_add(digests, NID_id_Dstu7564_384);
+    // algo_add(digests, NID_id_Dstu7564_512);
+    // algo_add(digests, NID_id_Dstu7564mac_256);
+    // algo_add(digests, NID_id_Dstu7564mac_384);
+    // algo_add(digests, NID_id_Dstu7564mac_512);
+
     algo_add(digests, 0);
 }
 
 static int ukrypto_digests(ENGINE *e, const EVP_MD **digest, const int **nids, int nid)
-{  
+{
     /* NULL parameter means we were asked about supported NIDs */
     if (!digest)
     {
@@ -82,43 +77,43 @@ static void prepare_ciphers()
     /* GOST cipher */
     /* TODO: verify foreign IDs */
     algo_add(ciphers, NID_id_Gost28147ecb);
-    algo_add(ciphers, NID_id_Gost28147_89);
-    algo_add(ciphers, NID_id_Gost28147ctr);
-    algo_add(ciphers, NID_id_Gost28147cfb);
-    algo_add(ciphers, NID_id_Gost28147cmac);
-    
+    // algo_add(ciphers, NID_id_Gost28147_89);
+    // algo_add(ciphers, NID_id_Gost28147ctr);
+    // algo_add(ciphers, NID_id_Gost28147cfb);
+    // algo_add(ciphers, NID_id_Gost28147cmac);
+
     /* Kalyna */
-    algo_add(ciphers, NID_id_Dstu7624ecb_128);
-    algo_add(ciphers, NID_id_Dstu7624ecb_256);
-    algo_add(ciphers, NID_id_Dstu7624ecb_512);
-    algo_add(ciphers, NID_id_Dstu7624ctr_128);
-    algo_add(ciphers, NID_id_Dstu7624ctr_256);
-    algo_add(ciphers, NID_id_Dstu7624ctr_512);
-    algo_add(ciphers, NID_id_Dstu7624cfb_128);
-    algo_add(ciphers, NID_id_Dstu7624cfb_256);
-    algo_add(ciphers, NID_id_Dstu7624cfb_512);
-    algo_add(ciphers, NID_id_Dstu7624cmac_128);
-    algo_add(ciphers, NID_id_Dstu7624cmac_256);
-    algo_add(ciphers, NID_id_Dstu7624cmac_512);
-    algo_add(ciphers, NID_id_Dstu7624cbc_128);
-    algo_add(ciphers, NID_id_Dstu7624cbc_256);
-    algo_add(ciphers, NID_id_Dstu7624cbc_512);
-    algo_add(ciphers, NID_id_Dstu7624ofb_128);
-    algo_add(ciphers, NID_id_Dstu7624ofb_256);
-    algo_add(ciphers, NID_id_Dstu7624ofb_512);
-    algo_add(ciphers, NID_id_Dstu7624gmac_128);
-    algo_add(ciphers, NID_id_Dstu7624gmac_256);
-    algo_add(ciphers, NID_id_Dstu7624gmac_512);
-    algo_add(ciphers, NID_id_Dstu7624ccm_128);
-    algo_add(ciphers, NID_id_Dstu7624ccm_256);
-    algo_add(ciphers, NID_id_Dstu7624ccm_512);
-    algo_add(ciphers, NID_id_Dstu7624xts_128);
-    algo_add(ciphers, NID_id_Dstu7624xts_256);
-    algo_add(ciphers, NID_id_Dstu7624xts_512);
-    algo_add(ciphers, NID_id_Dstu7624kw_128);
-    algo_add(ciphers, NID_id_Dstu7624kw_256);
-    algo_add(ciphers, NID_id_Dstu7624kw_512);
-    
+    // algo_add(ciphers, NID_id_Dstu7624ecb_128);
+    // algo_add(ciphers, NID_id_Dstu7624ecb_256);
+    // algo_add(ciphers, NID_id_Dstu7624ecb_512);
+    // algo_add(ciphers, NID_id_Dstu7624ctr_128);
+    // algo_add(ciphers, NID_id_Dstu7624ctr_256);
+    // algo_add(ciphers, NID_id_Dstu7624ctr_512);
+    // algo_add(ciphers, NID_id_Dstu7624cfb_128);
+    // algo_add(ciphers, NID_id_Dstu7624cfb_256);
+    // algo_add(ciphers, NID_id_Dstu7624cfb_512);
+    // algo_add(ciphers, NID_id_Dstu7624cmac_128);
+    // algo_add(ciphers, NID_id_Dstu7624cmac_256);
+    // algo_add(ciphers, NID_id_Dstu7624cmac_512);
+    // algo_add(ciphers, NID_id_Dstu7624cbc_128);
+    // algo_add(ciphers, NID_id_Dstu7624cbc_256);
+    // algo_add(ciphers, NID_id_Dstu7624cbc_512);
+    // algo_add(ciphers, NID_id_Dstu7624ofb_128);
+    // algo_add(ciphers, NID_id_Dstu7624ofb_256);
+    // algo_add(ciphers, NID_id_Dstu7624ofb_512);
+    // algo_add(ciphers, NID_id_Dstu7624gmac_128);
+    // algo_add(ciphers, NID_id_Dstu7624gmac_256);
+    // algo_add(ciphers, NID_id_Dstu7624gmac_512);
+    // algo_add(ciphers, NID_id_Dstu7624ccm_128);
+    // algo_add(ciphers, NID_id_Dstu7624ccm_256);
+    // algo_add(ciphers, NID_id_Dstu7624ccm_512);
+    // algo_add(ciphers, NID_id_Dstu7624xts_128);
+    // algo_add(ciphers, NID_id_Dstu7624xts_256);
+    // algo_add(ciphers, NID_id_Dstu7624xts_512);
+    // algo_add(ciphers, NID_id_Dstu7624kw_128);
+    // algo_add(ciphers, NID_id_Dstu7624kw_256);
+    // algo_add(ciphers, NID_id_Dstu7624kw_512);
+
     algo_add(ciphers, 0);
 }
 
@@ -139,26 +134,27 @@ static size_t n_pkeymeths = 0;
 static void prepare_pkeymeths()
 {
     /* DSTU 4145 */
-    algo_add(pkeymeths, NID_id_Dstu4145WithGost34311);
-    algo_add(pkeymeths, NID_id_Dstu4145WithDstu7564_256);
-    algo_add(pkeymeths, NID_id_Dstu4145WithDstu7564_384);
-    algo_add(pkeymeths, NID_id_Dstu4145WithDstu7564_512);
-    
+    // algo_add(pkeymeths, NID_id_Dstu4145WithGost34311);
+    // algo_add(pkeymeths, NID_id_Dstu4145WithDstu7564_256);
+    // algo_add(pkeymeths, NID_id_Dstu4145WithDstu7564_384);
+    // algo_add(pkeymeths, NID_id_Dstu4145WithDstu7564_512);
+
     /* GOST 34.310 signature */
-    algo_add(pkeymeths, NID_id_Gost34310WithGost34311); /* TODO: add foreign ID */
-    
-    algo_add(pkeymeths, 0);
+    // algo_add(pkeymeths, NID_id_Gost34310WithGost34311); /* TODO: add foreign ID */
+
+    //algo_add(pkeymeths, 0);
 }
 
-static int ukrypto_pkeymeths(ENGINE *e, EVP_PKEY_METHOD **pmeth, const int **nids, int nid)
-{
-    /* NULL parameter means we were asked about supported NIDs */
-    if (!pmeth)
-    {
-        *nids = pkeymeths;
-        return n_pkeymeths - 1;
-    }
-}
+// FIXME: doesn't work in OSX (OpenSSL v 0.9.8)
+// static int ukrypto_pkeymeths(ENGINE *e, EVP_PKEY_METHOD **pmeth, const int **nids, int nid)
+// {
+//     /* NULL parameter means we were asked about supported NIDs */
+//     if (!pmeth)
+//     {
+//         *nids = pkeymeths;
+//         return n_pkeymeths - 1;
+//     }
+// }
 
 /* Prints an error message and returns 1 */
 static int ukrypto_error(const char *fmt, ...)
@@ -166,7 +162,7 @@ static int ukrypto_error(const char *fmt, ...)
     va_list ap;
     va_start(ap, fmt);
     vfprintf(stderr, fmt, ap);
-    
+
     return 1;
 }
 
@@ -178,10 +174,10 @@ static int ukrypto_bind(ENGINE* e, const char *id)
     if (!ukrypto_generate_nids())
         return ukrypto_error("Can not generate NIDs\n");
 #endif
-    
+
     /* TODO: test what happens on loading/unloading and multiple loads */
     /* TODO: rewrite this completely anyway */
-    
+
     /* Basic setup */
     if (!ENGINE_set_id(e, ukrypto_id))
         return ukrypto_error("Can not set engine id\n");
@@ -190,21 +186,20 @@ static int ukrypto_bind(ENGINE* e, const char *id)
 
     /* Preparing stuff */
     /* TODO: check difference between bind and init */
-    prepare_digests();
+    // prepare_digests();
     prepare_ciphers();
-    prepare_pkeymeths();
-    
+    // prepare_pkeymeths();
+
     /* Registering stuff */
-    if (!ENGINE_set_digests(e, ukrypto_digests))
-        return ukrypto_error("Can not setup digests\n");
+//    if (!ENGINE_set_digests(e, ukrypto_digests))
+//        return ukrypto_error("Can not setup digests\n");
     if (!ENGINE_set_ciphers(e, ukrypto_ciphers))
         return ukrypto_error("Can not setup ciphers\n");
-    if (!ENGINE_set_pkey_meths(e, ukrypto_pkeymeths))
-        return ukrypto_error("Can not setup public key methods\n");
-    
+//    if (!ENGINE_set_pkey_meths(e, ukrypto_pkeymeths))
+//        return ukrypto_error("Can not setup public key methods\n");
+
     return 1;
 }
 
 IMPLEMENT_DYNAMIC_BIND_FN(ukrypto_bind)
 IMPLEMENT_DYNAMIC_CHECK_FN()
-

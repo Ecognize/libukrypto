@@ -21,6 +21,10 @@
 #ifndef UKRYPTO_MAGMA_H_
 #define UKRYPTO_MAGMA_H_
 
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -32,12 +36,41 @@ extern "C"
 typedef struct
 {
   bool      encrypt;    /**< Whether we are encrypting or decrypting. */
-  uint8_t   s_bl[8][8]; /**< S-block. */
+  uint64_t  s_box[8];   /**< S-box. */
   size_t    rs;         /**< Rounds passed. */
   uint32_t  state[2];   /**< Encryption state. */
   uint32_t  keys[8];    /**< Encryption key (subkeys). */
 } UKRYPTO_MAGMA_CTX;
 
+/*!
+ * Cipher initialisation.
+ *
+ * @param ctx[in]       Preallocated context structure pointer.
+ * @param key[in]       Encryption key.
+ * @param encrypt[in]   true if we are encrypting, false otherwise.
+ *
+ * @return true on success, false otherwise.
+ */
+bool ukrypto_magma_init(UKRYPTO_MAGMA_CTX *ctx, const uint8_t key[32], bool encrypt);
+
+/*!
+ * Execute the cipher function and write the result.
+ *
+ * @param ctx[in]       Context pointer.
+ * @param out[out]      Preallocated buffer to store output to.
+ * @param in[in]        Input buffer to operate on.
+ *
+ * @return 1 on success, 0 otherwise.
+ */
+bool ukrypto_magma_do_cipher(UKRYPTO_MAGMA_CTX *ctx, uint8_t *out, const uint8_t *in);
+
+/*!
+ * Cipher cleanup.
+ *
+ * @param ctx[in]       Context pointer.
+ * @return 1 on sucess, 0 otherwise.
+ */
+bool ukrypto_magma_cleanup(UKRYPTO_MAGMA_CTX *ctx);
 
 #ifdef __cplusplus
 }

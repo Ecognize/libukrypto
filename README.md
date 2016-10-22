@@ -20,11 +20,13 @@ For files issues by АЦСК ІДД ДФС. Note that while extension is `.cer`,
 ```Bash
 ln -s libukrypto.dylib libukrypto.1.so
 ```
+- S-boxes for Magma are written in host native format. Meaning LSB is `0xs₁s₀`.
 
 ## TODO
 - Make `check` optional.
 - Code style
 - Code assumes 8-bit bytes.
+- Wrap malloc (OpenSSL malloc or other depending on situation)
 
 ## Fina venko
 Currently, upstream `openssl` lacks the correct OID definitions for Ukrainian algorithms, so they are created at runtime via `legacy.c`.

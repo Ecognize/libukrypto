@@ -208,7 +208,7 @@ START_TEST(magma_test_gosthash_cryptopp_8)
 }
 END_TEST
 
-Suite *magma_suite() {
+Suite *ciphers_suite() {
   Suite *suite = suite_create("Ciphers");
   TCase *tcase_magma = tcase_create("Magma");
   tcase_add_test(tcase_magma, magma_test_gosthash_cryptopp_1);
@@ -227,7 +227,7 @@ Suite *magma_suite() {
 int main(int argc, char** argv)
 {
   int failed;
-  Suite *s = magma_suite();
+  Suite *s = ciphers_suite();
   SRunner *sr = srunner_create(s);
 
   srunner_run_all(sr, CK_NORMAL);

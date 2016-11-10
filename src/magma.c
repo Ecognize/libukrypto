@@ -79,11 +79,19 @@ static void ukrypto_magma_do_round(UKRYPTO_MAGMA_CTX* ctx)
 
 bool ukrypto_magma_init(UKRYPTO_MAGMA_CTX *ctx, const uint8_t key[32], bool encrypt)
 {
+  uint32_t keys[8];
+  for (size_t i = 0; i < lengthof(keys); i++)
+    keys[i] = frombitstream(&key[4*i], 32);
+  return ukrypto_magma_init_native(ctx, keys, encrypt);
+}
+
+bool ukrypto_magma_init_native(UKRYPTO_MAGMA_CTX *ctx, const uint32_t key[8], bool encrypt)
+{
   // TODO custom s-boxes
   for (size_t i = 0; i < lengthof(ctx->s_box); i++)
     ctx->s_box[i] = gost_hash_s_box[i];
   for (size_t i = 0; i < lengthof(ctx->keys); i++)
-    ctx->keys[i] = frombitstream(&key[4*i], 32);
+    ctx->keys[i] = key[i];;
   ctx->encrypt = encrypt;
   ctx->rs = 0;
   ctx->state[0] = ctx->state[1] = 0;
@@ -92,18 +100,32 @@ bool ukrypto_magma_init(UKRYPTO_MAGMA_CTX *ctx, const uint8_t key[32], bool encr
 
 bool ukrypto_magma_do_cipher(UKRYPTO_MAGMA_CTX *ctx, uint8_t *out, const uint8_t *in)
 {
+  uint32_t ins[] = { frombitstream(&in[0], 32), frombitstream(&in[4], 32) };
+  uint32_t outs[2];
+  bool res = ukrypto_magma_do_cipher_native(ctx, outs, ins);
+  if (!res)
+    return false;
+
+  /* Concatenate the result */
+  tobitstream(&out[0], outs[0], 32);
+  tobitstream(&out[4], outs[1], 32);
+  return true;
+}
+
+bool ukrypto_magma_do_cipher_native(UKRYPTO_MAGMA_CTX *ctx, uint32_t out[], const uint32_t in[])
+{
   /* Reset everything just in case and set up initial values */
   ctx->rs = 0;
-  ctx->state[0] = frombitstream(&in[0], 32);
-  ctx->state[1] = frombitstream(&in[4], 32);
+  ctx->state[0] = in[0];
+  ctx->state[1] = in[1];
 
   /* Execute round function */
   for (size_t i = 0; i < N_ROUNDS; i++)
     ukrypto_magma_do_round(ctx);
 
-  /* Concatenate the result */
-  tobitstream(&out[0], ctx->state[1], 32);
-  tobitstream(&out[4], ctx->state[0], 32);
+  /* Save the result */
+  out[0] = ctx->state[1];
+  out[1] = ctx->state[0];
 
   return true;
 }

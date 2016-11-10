@@ -53,6 +53,18 @@ typedef struct
  */
 bool ukrypto_magma_init(UKRYPTO_MAGMA_CTX *ctx, const uint8_t key[32], bool encrypt);
 
+
+/*!
+ * Cipher initialisation using 32-bit keys in host-native byte order.
+ *
+ * @param ctx[in]       Preallocated context structure pointer.
+ * @param key[in]       Encryption key.
+ * @param encrypt[in]   true if we are encrypting, false otherwise.
+ *
+ * @return true on success, false otherwise.
+ */
+bool ukrypto_magma_init_native(UKRYPTO_MAGMA_CTX *ctx, const uint32_t key[8], bool encrypt);
+
 /*!
  * Execute the cipher function and write the result.
  *
@@ -63,6 +75,17 @@ bool ukrypto_magma_init(UKRYPTO_MAGMA_CTX *ctx, const uint8_t key[32], bool encr
  * @return 1 on success, 0 otherwise.
  */
 bool ukrypto_magma_do_cipher(UKRYPTO_MAGMA_CTX *ctx, uint8_t *out, const uint8_t *in);
+
+/*!
+ * Execute the cipher function assuming input and output are pairs of host-native byte order 32-bit integers and write the result.
+ *
+ * @param ctx[in]       Context pointer.
+ * @param out[out]      Preallocated buffer to store output to.
+ * @param in[in]        Input values to operate on.
+ *
+ * @return 1 on success, 0 otherwise.
+ */
+bool ukrypto_magma_do_cipher_native(UKRYPTO_MAGMA_CTX *ctx, uint32_t out[2], const uint32_t in[2]);
 
 /*!
  * Cipher cleanup.

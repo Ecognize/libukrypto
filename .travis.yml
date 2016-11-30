@@ -1,0 +1,14 @@
+language: c
+compiler:
+  - clang
+  - gcc
+addons:
+  apt:
+    packages:
+      - check
+script:
+  - mkdir build
+  - cd build
+  - cmake .. && make
+  - make test
+

@@ -18,12 +18,14 @@ addons:
     - cmake
     - cmake-data
 
+# TODO: this all doesn't work by now, so I'd rather commit it and go sleep :^)
+
 # 3 releases suggested by OpenSSL homepage as of end of 2016
-env:
-  - OPENSSL="1.1.0c"
-  - OPENSSL="1.0.2j"
-  - OPENSSL="1.0.1u"
-  - OPENSSL=""
+#env:
+#  - OPENSSL="1.1.0c"
+#  - OPENSSL="1.0.2j"
+#  - OPENSSL="1.0.1u"
+#  - OPENSSL=""
 
 
 #before_install:

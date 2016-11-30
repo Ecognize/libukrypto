@@ -4,9 +4,10 @@ compiler:
 - clang
 - gcc
 
-os:
-- linux
-- osx
+# TODO: att OSX to matrix, currently it is too slow or whatever
+#os:
+#- linux
+#- osx
 
 addons:
   apt:
@@ -17,9 +18,9 @@ addons:
     - cmake
     - cmake-data
 
-before_install:
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
+#before_install:
+#- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
+#- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
 
 script:
 - mkdir build

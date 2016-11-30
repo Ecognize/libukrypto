@@ -1,33 +1,32 @@
 language: c
 
 compiler:
-  - clang
-  - gcc
+- clang
+- gcc
 
 os:
-  - linux
-  - osx
+- linux
+- osx
 
 addons:
   apt:
-    # TODO: periodically check if Travis has an up to date cmake
-    # https://github.com/travis-ci/travis-ci/issues/4631#issuecomment-191153634
     sources:
-      - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
+    - george-edison55-precise-backports
     packages:
-      - check
-      - cmake
-      - cmake-data
+    - check
+    - cmake
+    - cmake-data
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
 
 script:
-  - mkdir build
-  - cd build
-  - cmake .. && make
-  - make test
+- mkdir build
+- cd build
+- cmake .. && make
+- make test
 
-# TODO: construct matrix with different OpenSSL versions
-# TODO: also different archs maybe?
+notifications:
+  slack:
+    secure: TJYJm44aYLmTIEFWWsnlYuWx0fCsF4gWLi/mx2WVuvzI0EcV4t3Eo5ubBMSngnODXwGk6rXV7Irvxsy2GiXGEcJd0Re7If03FtFI12VQsj7qW9SHz4a3vkz2sHaBBpCPGpW12a87p/r1b12SH+SzJUxkmwTEbffCjWzOusdtG+aEfaSyeUAILmmw+Ud9fHH6PfRqKaEZx60NWomNDcQA0ApE3oPmPM0aGCfVfoK/g3+lPmJo2zcXKTPZlgBhXc+ZK3mh13rDo9ipkKs9MLYzjwLBo7XpNU8utgtawFJ8x9EXBz8l7qPvggV8KrmWTzHh48BRxbPUTHRCLBcGim8/qBJPnpAlrxTSzkb7MtNoNoFkFfR6fTcN5PFV3JvrUpK1soDDs9YEtKXm25YHZHvgqufxETyTVqlGVyZyR/PDyXN08voV0Oxl5bxF+CnjPstp8/+Iy0t+goyf5UK707WUNHuagmvZ470iOPHTL7zGvqm4SwmimHC1i6bICGoADO4/88yJ1CMHb1tfSo4U16ipqLhNQT7AmtPtGRQo1x4Lf8avGGUATZB+RbTnGePH04zk+f+emtGbgBAh77NnJS23keplZHcZxFwLqWPAVlkIddbSk2eBz7hAIy7zPK7/emWvWU3hpT3U+Ax/4T7TLubhWSOh/ZyUNhlHWx2AD0UWqEA=

@@ -18,6 +18,14 @@ addons:
     - cmake
     - cmake-data
 
+# 3 releases suggested by OpenSSL homepage as of end of 2016
+env:
+  - OPENSSL="1.1.0c"
+  - OPENSSL="1.0.2j"
+  - OPENSSL="1.0.1u"
+  - OPENSSL=""
+
+
 #before_install:
 #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
 #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi

@@ -1,4 +1,4 @@
-# UKRYPTO
+# UKRYPTO [![Build Status](https://img.shields.io/travis/ErintLabs/libukrypto/master.svg)](https://travis-ci.org/ErintLabs/libukrypto) [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/10996.svg)](https://scan.coverity.com/projects/erintlabs-libukrypto) 
 Ukrainian official cryptography standards implemented as an engine module for OpenSSL.
 
 ## Standards supported

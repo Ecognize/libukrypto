@@ -20,8 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# TODO: do we really NEED 3.1? Check, if not, remove jessie-backports parts from
+# Debian Travis builds
 cmake_minimum_required(VERSION 3.1)
-project(libukrypto)
+project(libukrypto C)
 
 # FIXME make testing optional and disabled if check not found
 

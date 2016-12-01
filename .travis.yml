@@ -49,22 +49,31 @@ matrix:
     # Debian Jessie for all the archs possible
     # Except MIPS, they have wheezy tag only
     - env: ARCH="amd64-jessie"
+      name: x86_64
       <<: *crosstemplate
     - env: ARCH="i386-jessie"
+      name: x86
       <<: *crosstemplate
     - env: ARCH="s390x-jessie"
+      name: IBM System z
       <<: *crosstemplate
     - env: ARCH="arm64-jessie"
+      name: ARM 64-bit
       <<: *crosstemplate
     - env: ARCH="armel-jessie"
+      name: ARM soft float
       <<: *crosstemplate
     - env: ARCH="armhf-jessie"
+      name: ARMv7 hard float
       <<: *crosstemplate
     - env: ARCH="powerpc-jessie"
+      name: PowerPC
       <<: *crosstemplate
     - env: ARCH="mips-wheezy"
+      name: MIPS
       <<: *crosstemplate
     - env: ARCH="mipsel-wheezy"
+      name: MIPS Little-Endian
       <<: *crosstemplate
 
 script:

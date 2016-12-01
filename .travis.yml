@@ -1,9 +1,7 @@
 language: c
 sudo: false
 
-compiler:
-- clang
-- gcc
+compiler: gcc
 
 # TODO: att OSX to matrix, currently it is too slow or whatever
 #os:
@@ -35,7 +33,6 @@ addons:
 
 # Base for cross configurations
 crosstemplate: &crosstemplate
-  compiler: gcc
   sudo: required
   services:
     - docker
@@ -46,28 +43,23 @@ crosstemplate: &crosstemplate
 
 matrix:
   include:
+    # LLVM build
+    - compiler: clang
     # TODO: MIPS, it has only wheezy tags available
     # and wheezy-backports doesn't have a fresh cmake
     - env: ARCH="amd64"
-      name: Debian Jessie x86_64
       <<: *crosstemplate
     - env: ARCH="i386"
-      name: Debian Jessie x86
       <<: *crosstemplate
     - env: ARCH="s390x"
-      name: Debian Jessie IBM System z
       <<: *crosstemplate
     - env: ARCH="arm64"
-      name: Debian Jessie ARM 64-bit
       <<: *crosstemplate
     - env: ARCH="armel"
-      name: Debian Jessie ARM soft float
       <<: *crosstemplate
     - env: ARCH="armhf"
-      name: Debian Jessie ARMv7 hard float
       <<: *crosstemplate
     - env: ARCH="powerpc"
-      name: Debian Jessie PowerPC
       <<: *crosstemplate
     #- env: ARCH="mips-wheezy"
     #  name: MIPS

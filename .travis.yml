@@ -1,4 +1,5 @@
 language: c
+sudo: false
 
 compiler:
 - clang
@@ -31,6 +32,38 @@ addons:
 #before_install:
 #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
 #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
+
+matrix:
+  include:
+    # Debian Jessie for all the archs possible
+    # Except MIPS, they have wheezy tag only
+    - env: ARCH="amd64-jessie"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="i386-jessie"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="s390x-jessie"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="arm64-jessie"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="armel-jessie"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="armhf-jessie"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="powerpc-jessie"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="mips-wheezy"
+      sudo: required
+      script: ././travis/cross.sh
+    - env: ARCH="mipsel-wheezy"
+      sudo: required
+      script: ././travis/cross.sh
 
 script:
 - ./.travis/build.sh

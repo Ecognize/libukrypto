@@ -6,7 +6,7 @@ echo deb http://ftp.debian.org/debian jessie main >> /etc/apt/sources.list
 
 # Setup the environment for cases when Travis automatically can't
 apt-get update
-apt-get -y -t jessie-backports install openssl cmake cmake-data check
+apt-get -y -t jessie-backports install libssl-dev openssl cmake cmake-data check
 
 # Running the actual build
 cd /usr/src/libukrypto

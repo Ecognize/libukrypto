@@ -27,7 +27,7 @@ project(libukrypto C)
 
 # FIXME make testing optional and disabled if check not found
 
-include(GNUInstallDirs)
+# include(GNUInstallDirs) for the future
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/CMakeModules/)
 find_package(Check REQUIRED)
 find_package(OpenSSL REQUIRED)

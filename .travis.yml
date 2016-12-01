@@ -33,46 +33,39 @@ addons:
 #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
 #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
 
+# Base for cross configurations
+crosstemplate: &crosstemplate
+  compiler: gcc
+  sudo: required
+  services:
+    - docker
+  script: ./.travis/cross.sh
+  addons:
+    apt:
+      packages:
+
 matrix:
   include:
     # Debian Jessie for all the archs possible
     # Except MIPS, they have wheezy tag only
     - env: ARCH="amd64-jessie"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="i386-jessie"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="s390x-jessie"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="arm64-jessie"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="armel-jessie"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="armhf-jessie"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="powerpc-jessie"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="mips-wheezy"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
     - env: ARCH="mipsel-wheezy"
-      compiler: gcc
-      sudo: required
-      script: ./.travis/cross.sh
+      <<: *crosstemplate
 
 script:
 - ./.travis/build.sh

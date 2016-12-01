@@ -47,8 +47,8 @@ crosstemplate: &crosstemplate
 matrix:
   include:
     # OSX build
-    - compiler: clang
-      os: osx
+    #- compiler: clang
+    #  os: osx
     # TODO: MIPS, it has only wheezy tags available
     # and wheezy-backports doesn't have a fresh cmake
     # TODO: s390x seems not to have qemu* binfmt handler installed

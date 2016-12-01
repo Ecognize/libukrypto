@@ -33,10 +33,7 @@ addons:
 #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
 
 script:
-- mkdir build
-- cd build
-- cmake .. && make
-- make test
+- ./.travis/build.sh
 
 notifications:
   slack:

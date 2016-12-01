@@ -1,7 +1,9 @@
 language: c
 sudo: false
 
-compiler: gcc
+compiler:
+  - gcc
+  - clang
 
 # TODO: att OSX to matrix, currently it is too slow or whatever
 #os:
@@ -34,6 +36,7 @@ addons:
 # Base for cross configurations
 crosstemplate: &crosstemplate
   sudo: required
+  compiler: gcc
   services:
     - docker
   script: ./.travis/cross.sh
@@ -43,8 +46,6 @@ crosstemplate: &crosstemplate
 
 matrix:
   include:
-    # LLVM build
-    - compiler: clang
     # OSX build
     - compiler: clang
       os: osx

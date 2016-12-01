@@ -46,35 +46,35 @@ crosstemplate: &crosstemplate
 
 matrix:
   include:
-    # Debian Jessie for all the archs possible
-    # Except MIPS, they have wheezy tag only
-    - env: ARCH="amd64-jessie"
-      name: x86_64
+    # TODO: MIPS, it has only wheezy tags available
+    # and wheezy-backports doesn't have a fresh cmake
+    - env: ARCH="amd64"
+      name: Debian Jessie x86_64
       <<: *crosstemplate
-    - env: ARCH="i386-jessie"
-      name: x86
+    - env: ARCH="i386"
+      name: Debian Jessie x86
       <<: *crosstemplate
-    - env: ARCH="s390x-jessie"
-      name: IBM System z
+    - env: ARCH="s390x"
+      name: Debian Jessie IBM System z
       <<: *crosstemplate
-    - env: ARCH="arm64-jessie"
-      name: ARM 64-bit
+    - env: ARCH="arm64"
+      name: Debian Jessie ARM 64-bit
       <<: *crosstemplate
-    - env: ARCH="armel-jessie"
-      name: ARM soft float
+    - env: ARCH="armel"
+      name: Debian Jessie ARM soft float
       <<: *crosstemplate
-    - env: ARCH="armhf-jessie"
-      name: ARMv7 hard float
+    - env: ARCH="armhf"
+      name: Debian Jessie ARMv7 hard float
       <<: *crosstemplate
-    - env: ARCH="powerpc-jessie"
-      name: PowerPC
+    - env: ARCH="powerpc"
+      name: Debian Jessie PowerPC
       <<: *crosstemplate
-    - env: ARCH="mips-wheezy"
-      name: MIPS
-      <<: *crosstemplate
-    - env: ARCH="mipsel-wheezy"
-      name: MIPS Little-Endian
-      <<: *crosstemplate
+    #- env: ARCH="mips-wheezy"
+    #  name: MIPS
+    #  <<: *crosstemplate
+    #- env: ARCH="mipsel-wheezy"
+    #  name: MIPS Little-Endian
+    #  <<: *crosstemplate
 
 script:
 - ./.travis/build.sh

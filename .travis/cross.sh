@@ -6,5 +6,8 @@
 # Register binfmt handlers
 docker run --rm --privileged multiarch/qemu-user-static:register
 
+# Setup stuff
+docker run -it -v $(pwd):/usr/src/libukrypto multiarch/debian-debootstrap:${ARCH}-jessie /bin/bash -x /usr/src/libukrypto/.travis/deps.sh
+
 # Run the build on specified arch
-docker run -it --rm -v $(pwd):/usr/src/libukrypto multiarch/debian-debootstrap:${ARCH} '/bin/bash -x /usr/src/libukrypto/.travis/deps.sh && /bin/bash -x /usr/src/libukrypto/.travis/build.sh'
+docker run -it -v $(pwd):/usr/src/libukrypto multiarch/debian-debootstrap:${ARCH}-jessie /bin/bash -x /usr/src/libukrypto/.travis/deps.sh

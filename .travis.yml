@@ -52,6 +52,7 @@ matrix:
     # TODO: MIPS, it has only wheezy tags available
     # and wheezy-backports doesn't have a fresh cmake
     # TODO: s390x seems not to have qemu* binfmt handler installed
+    # TODO: powerpc, same
     - env: ARCH="amd64"
       <<: *crosstemplate
     - env: ARCH="i386"
@@ -64,8 +65,8 @@ matrix:
       <<: *crosstemplate
     - env: ARCH="armhf"
       <<: *crosstemplate
-    - env: ARCH="powerpc"
-      <<: *crosstemplate
+    #- env: ARCH="powerpc"
+    #  <<: *crosstemplate
     #- env: ARCH="mips-wheezy"
     #  name: MIPS
     #  <<: *crosstemplate

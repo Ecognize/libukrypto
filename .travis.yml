@@ -38,32 +38,41 @@ matrix:
     # Debian Jessie for all the archs possible
     # Except MIPS, they have wheezy tag only
     - env: ARCH="amd64-jessie"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="i386-jessie"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="s390x-jessie"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="arm64-jessie"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="armel-jessie"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="armhf-jessie"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="powerpc-jessie"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="mips-wheezy"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
     - env: ARCH="mipsel-wheezy"
+      compiler: gcc
       sudo: required
-      script: ././travis/cross.sh
+      script: ./.travis/cross.sh
 
 script:
 - ./.travis/build.sh

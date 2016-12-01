@@ -7,4 +7,4 @@
 docker run --rm --privileged multiarch/qemu-user-static:register
 
 # Run the build on specified arch
-docker run -it --rm -v $(pwd):/usr/src/libukrypto multiarch/debian-debootstrap:${ARCH} /bin/bash -x /usr/src/libukrypto/.travis/build.sh
+docker run -it --rm -v $(pwd):/usr/src/libukrypto multiarch/debian-debootstrap:${ARCH} /bin/bash -x /usr/src/libukrypto/.travis/deps.sh && /bin/bash -x /usr/src/libukrypto/.travis/build.sh

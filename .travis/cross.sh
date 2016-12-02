@@ -18,4 +18,4 @@ case "${ARCH}" in
 esac
 
 # Run the build on specified arch
-docker run -it -v $(pwd):/usr/src/libukrypto multiarch/debian-debootstrap:${ARCH}-jessie /bin/bash -x /usr/src/libukrypto/.travis/docker_build.sh
+docker run --rm -v $(pwd):/usr/src/libukrypto multiarch/debian-debootstrap:${ARCH}-jessie /bin/bash -x /usr/src/libukrypto/.travis/docker_build.sh

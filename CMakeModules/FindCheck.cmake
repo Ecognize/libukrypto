@@ -36,7 +36,7 @@ IF( NOT CHECK_FOUND )
 		FIND_LIBRARY( CHECK_LIBRARIES NAMES check )
 		# TODO: only trigger only if we deal with static library
 		# TODO: test this on various platforms
-		SET(CHECK_LIBRARIES ${CHECK_LIBRARIES} m pthread rt subunit)
+		SET(CHECK_LIBRARIES ${CHECK_LIBRARIES} m pthread rt ) # TODO: subunit on some platforms
 	ENDIF ( CHECK_INSTALL_DIR )
 
 	IF ( CHECK_INCLUDE_DIR AND CHECK_LIBRARIES )

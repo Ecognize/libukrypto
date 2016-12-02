@@ -41,6 +41,7 @@ crosstemplate: &crosstemplate
 
 # Base for custom OpenSSL versions
 openssltemplate: &openssltemplate
+  compiler: gcc
   script: ./.travis/openssl.sh
 
 matrix:

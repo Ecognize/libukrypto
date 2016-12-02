@@ -1,4 +1,4 @@
 #!/bin/sh
 mkdir build
 cd build
-cmake .. && make && make test
+cmake .. $* && make && make test

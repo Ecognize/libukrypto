@@ -5,11 +5,6 @@ compiler:
   - gcc
   - clang
 
-# TODO: att OSX to matrix, currently it is too slow or whatever
-#os:
-#- linux
-#- osx
-
 addons:
   apt:
     sources:
@@ -44,8 +39,19 @@ crosstemplate: &crosstemplate
     apt:
       packages:
 
+# Base for custom OpenSSL versions
+openssltemplate: &openssltemplate
+  script: ./.travis/openssl.sh
+
 matrix:
   include:
+    # 3 releases suggested by OpenSSL homepage as of end of 2016
+    - env: OPENSSL_VERSION="1.1.0c"
+      <<: *openssltemplate
+    - env: OPENSSL_VERSION="1.0.2j"
+      <<: *openssltemplate
+    - env: OPENSSL_VERSION="1.0.1u"
+      <<: *openssltemplate
     # OSX build
     #- compiler: clang
     #  os: osx

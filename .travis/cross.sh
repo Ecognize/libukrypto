@@ -5,10 +5,13 @@
 
 # Register binfmt handlers for archs that we can run natively on x86_64
 case "${ARCH}" in
-  i386|x86_64)    # manual indicates arm64 should also work but it really doesn't 
+  i386|x86_64)    # manual indicates arm64 should also work but it really doesn't
     ;;
   *)
     docker run --rm --privileged multiarch/qemu-user-static:register
+    # TODO: Temporary workarounds before upstream patches are accepted
+    echo -1 | sudo tee /proc/sys/fs/binfmt_misc/s390x > /dev/null
+    echo ':s390x:M::\x7fELF\x02\x02\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x16:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff:/usr/bin/qemu-s390x-static:' | sudo tee /proc/sys/fs/binfmt_misc/register > /dev/null
     ;;
 esac
 

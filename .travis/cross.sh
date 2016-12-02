@@ -5,7 +5,7 @@
 
 # Register binfmt handlers for archs that we can run natively on x86_64
 case "${ARCH}" in
-  i386|x86_64)    # manual indicates arm64 should also work but it really doesn't
+  i386) # manual indicates arm64 should also work but it really doesn't
     ;;
   *)
     docker run --rm --privileged multiarch/qemu-user-static:register

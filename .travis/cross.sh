@@ -9,11 +9,6 @@ case "${ARCH}" in
     ;;
   *)
     docker run --rm --privileged multiarch/qemu-user-static:register
-    # TODO: Temporary workarounds before upstream patches are accepted
-    echo -1 | sudo tee /proc/sys/fs/binfmt_misc/s390x > /dev/null
-    echo ':s390x:M::\x7fELF\x02\x02\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x16:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff:/usr/bin/qemu-s390x-static:' | sudo tee /proc/sys/fs/binfmt_misc/register > /dev/null
-    echo -1 | sudo tee /proc/sys/fs/binfmt_misc/ppc > /dev/null
-    echo ':ppc:M::\x7fELF\x01\x02\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x14:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff:/usr/bin/qemu-ppc-static:' | sudo tee /proc/sys/fs/binfmt_misc/register > /dev/null
     ;;
 esac
 

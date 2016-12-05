@@ -34,12 +34,15 @@ fi
 
 # If we are at containerised Debian, pull the required packages manually since Travis can't
 if [[ ! -z "$DEBIAN_CONTAINER" ]]; then
-  # Add the repository
+  # Add the repository and get the packages
   echo deb http://ftp.debian.org/debian jessie-backports main >> /etc/apt/sources.list
   echo deb http://ftp.debian.org/debian jessie main >> /etc/apt/sources.list
 
   apt-get update
   apt-get -y -t jessie-backports install libssl-dev openssl cmake cmake-data check
+
+  # Change to the right directory
+  cd /usr/src/libukrypto
 fi
 
 # Check if we need a pet copy of OpenSSL

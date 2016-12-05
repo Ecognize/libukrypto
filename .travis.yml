@@ -59,7 +59,9 @@ matrix:
       env: OPENSSL_VERSION="osx"
   allow_failures:
     # Standard OSX includes a very old OpenSSL, might fail
-    - env: OPENSSL_VERSION="osx"
+    # - env: OPENSSL_VERSION="osx"
+    # OSX builds can take ages to get a machine from Travis pool
+    - os: osx
     # PowerPC is broken atm, see #24
     - env: ARCH="powerpc"
 

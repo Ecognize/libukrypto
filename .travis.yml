@@ -1,9 +1,7 @@
 language: c
 sudo: false
 
-compiler:
-  - gcc
-  - clang
+compiler: gcc
 
 addons:
   apt:
@@ -14,47 +12,22 @@ addons:
     - cmake
     - cmake-data
 
-# TODO: this all doesn't work by now, so I'd rather commit it and go sleep :^)
-
-# 3 releases suggested by OpenSSL homepage as of end of 2016
-#env:
-#  - OPENSSL="1.1.0c"
-#  - OPENSSL="1.0.2j"
-#  - OPENSSL="1.0.1u"
-#  - OPENSSL=""
-
-before_install:
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install check        ; fi
-
 # Base for cross configurations
 crosstemplate: &crosstemplate
   sudo: required
-  compiler: gcc
   services:
     - docker
-  script: ./.travis/cross.sh
   addons:
     apt:
       packages:
 
-# Base for custom OpenSSL versions
-openssltemplate: &openssltemplate
-  compiler: gcc
-  script: ./.travis/openssl.sh
-
 matrix:
   include:
+    - compiler: clang
     # 3 releases suggested by OpenSSL homepage as of end of 2016
     - env: OPENSSL_VERSION="1.1.0c"
-      <<: *openssltemplate
     - env: OPENSSL_VERSION="1.0.2j"
-      <<: *openssltemplate
     - env: OPENSSL_VERSION="1.0.1u"
-      <<: *openssltemplate
-    # OSX build
-    - compiler: clang
-      os: osx
     # TODO: MIPS, it has only wheezy tags available
     # and wheezy-backports doesn't have a fresh cmake
     - env: ARCH="i386"
@@ -69,14 +42,23 @@ matrix:
       <<: *crosstemplate
     # TODO: qemu-ppc does not support set_robust_list() syscall
     # reactivate it after the problem is solved
-    #- env: ARCH="powerpc"
-    #  <<: *crosstemplate
     #- env: ARCH="mips-wheezy"
     #  name: MIPS
     #  <<: *crosstemplate
     #- env: ARCH="mipsel-wheezy"
     #  name: MIPS Little-Endian
     #  <<: *crosstemplate
+    # OSX build
+    - compiler: clang
+      os: osx
+      env: OPENSSL_VERSION="brew"
+  allow_failures:
+    # Standard OSX includes a very old OpenSSL, might fail
+    - compiler: clang
+      os: osx
+    # PowerPC is broken atm, see #24
+    - env: ARCH="powerpc"
+      <<: *crosstemplate
 
 script:
 - ./.travis/build.sh

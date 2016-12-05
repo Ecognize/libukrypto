@@ -40,6 +40,8 @@ matrix:
       <<: *crosstemplate
     - env: ARCH="armhf"
       <<: *crosstemplate
+    - env: ARCH="powerpc"
+      <<: *crosstemplate
     # TODO: qemu-ppc does not support set_robust_list() syscall
     # reactivate it after the problem is solved
     #- env: ARCH="mips-wheezy"
@@ -52,13 +54,14 @@ matrix:
     - compiler: clang
       os: osx
       env: OPENSSL_VERSION="brew"
-  allow_failures:
-    # Standard OSX includes a very old OpenSSL, might fail
     - compiler: clang
       os: osx
+      env: OPENSSL_VERSION="osx"
+  allow_failures:
+    # Standard OSX includes a very old OpenSSL, might fail
+    - env: OPENSSL_VERSION="osx"
     # PowerPC is broken atm, see #24
     - env: ARCH="powerpc"
-      <<: *crosstemplate
 
 script:
 - ./.travis/build.sh

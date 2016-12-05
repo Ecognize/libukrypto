@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
+set -ev
 EXTRA_OPTS=""
 
 # Check if we need to run the build on a selected architecture via docker
@@ -26,7 +27,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
   brew install check
   if [[ "$OPENSSL_VERSION" == "brew" ]]; then
     brew install openssl
-  else
+  elif [[ "$OPENSSL_VERSION" == "osx" ]]; then
     EXTRA_OPTS="$EXTRA_OPTS -DOPENSSL_ROOT_DIR=/usr"
   fi
 fi
@@ -42,7 +43,7 @@ if [[ ! -z "$DEBIAN_CONTAINER" ]]; then
 fi
 
 # Check if we need a pet copy of OpenSSL
-if [[ ! -z "$OPENSSL_VERSION" && "$OPENSSL_VERSION" != "brew" ]]; then
+if [[ ! -z "$OPENSSL_VERSION" && "$OPENSSL_VERSION" != "brew" && "$OPENSSL_VERSION" != "osx" ]]; then
   wget https://github.com/ErintLabs/openssl-bin/raw/master/openssl-${OPENSSL_VERSION}.tar.bz2
   tar -xf openssl-${OPENSSL_VERSION}.tar.bz2
   EXTRA_OPTS="$EXTRA_OPTS -DOPENSSL_ROOT_DIR=$(pwd)/openssl-${OPENSSL_VERSION}"

@@ -6,7 +6,7 @@ EXTRA_OPTS=""
 # Check if we need to run the build on a selected architecture via docker
 # More info at: https://hub.docker.com/r/multiarch/debian-debootstrap/
 # https://github.com/travis-ci/travis-ci/issues/3376#issuecomment-168003756
-if [[ ! -z "$ARCH" ]]; then
+if [[ ! -z "$ARCH" && -z "$DEBIAN_CONTAINER" ]]; then
   # Register binfmt handlers for archs that we can run natively on x86_64
   case "$ARCH" in
     i386) # manual indicates arm64 should also work but it really doesn't

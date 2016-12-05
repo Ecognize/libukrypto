@@ -23,10 +23,9 @@ addons:
 #  - OPENSSL="1.0.1u"
 #  - OPENSSL=""
 
-
-#before_install:
-#- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
-#- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cmake check  ; fi
+before_install:
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update               ; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install check        ; fi
 
 # Base for cross configurations
 crosstemplate: &crosstemplate
@@ -54,8 +53,8 @@ matrix:
     - env: OPENSSL_VERSION="1.0.1u"
       <<: *openssltemplate
     # OSX build
-    #- compiler: clang
-    #  os: osx
+    - compiler: clang
+      os: osx
     # TODO: MIPS, it has only wheezy tags available
     # and wheezy-backports doesn't have a fresh cmake
     - env: ARCH="i386"

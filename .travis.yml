@@ -50,18 +50,18 @@ matrix:
     #- env: ARCH="mipsel-wheezy"
     #  name: MIPS Little-Endian
     #  <<: *crosstemplate
-    # OSX build
+    # OSX build (can take ages to get a machine from Travis pool)
     - compiler: clang
       os: osx
       env: OPENSSL_VERSION="brew"
     - compiler: clang
       os: osx
       env: OPENSSL_VERSION="osx"
+      # For some reason Apple dropped openssl headers in El Capitan
+      # TODO: check 10.12
+      # TODO: probably reuse libswift-migrator?
+      osx_image: xcode6.4
   allow_failures:
-    # Standard OSX includes a very old OpenSSL, might fail
-    # - env: OPENSSL_VERSION="osx"
-    # OSX builds can take ages to get a machine from Travis pool
-    - os: osx
     # PowerPC is broken atm, see #24
     - env: ARCH="powerpc"
 

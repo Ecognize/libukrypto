@@ -26,9 +26,8 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
   brew update
   brew install check
   if [[ "$OPENSSL_VERSION" == "brew" ]]; then
-    brew install openssl
-  elif [[ "$OPENSSL_VERSION" == "osx" ]]; then
-    EXTRA_OPTS="$EXTRA_OPTS -DOPENSSL_ROOT_DIR=/usr"
+    brew outdated openssl || brew upgrade openssl
+    EXTRA_OPTS="$EXTRA_OPTS -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl"
   fi
 fi
 
@@ -54,4 +53,12 @@ fi
 
 mkdir build
 cd build
-cmake .. $EXTRA_OPTS && make && make test
+echo OPTS: $EXTRA_OPTS
+cmake .. $EXTRA_OPTS && make
+
+# See #17
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  ln -s libukrypto.dylib libukrypto.1.so
+fi
+
+make test

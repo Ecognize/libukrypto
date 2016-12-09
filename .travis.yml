@@ -42,6 +42,10 @@ matrix:
       <<: *crosstemplate
     - env: ARCH="powerpc"
       <<: *crosstemplate
+    - env: ARCH="mips"
+      <<: *crosstemplate
+    - env: ARCH="mipsel"
+      <<: *crosstemplate
     # TODO: qemu-ppc does not support set_robust_list() syscall
     # reactivate it after the problem is solved
     #- env: ARCH="mips-wheezy"
